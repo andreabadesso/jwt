@@ -271,7 +271,7 @@ jwt_sign(Alg, Payload, Key) ->
     jwt_sign_with_crypto(algorithm_to_crypto(Alg), Payload, Key).
 
 jwt_sign_with_crypto({hmac, Crypto}, Payload, Key) ->
-    base64url:encode(crypto:hmac(Crypto, Key, Payload));
+    base64url:encode(crypto:mac(Crypto, sha256, Key, Payload));
 
 jwt_sign_with_crypto({Algo, Crypto}, Payload, Pem)
     when (Algo =:= rsa orelse Algo =:= ecdsa) andalso is_binary(Pem) ->
